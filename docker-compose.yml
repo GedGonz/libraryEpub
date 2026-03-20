@@ -13,7 +13,7 @@ services:
       - "/home/gedgonz/library/Biblioteca Ebooks Español 2026 (epub)/coversBooks:/srv/library/covers:ro"
     ports:
       - "18081:8080"
-    restart: unless-stopped
+    restart: always
 
   frontend:
     build: ./frontend
@@ -23,4 +23,4 @@ services:
       - backend
     ports:
       - "4200:80"
-    restart: unless-stopped
+    restart: always
