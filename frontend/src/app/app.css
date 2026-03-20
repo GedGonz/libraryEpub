@@ -1,0 +1,74 @@
+.main {
+  display: none;
+}
+
+router-outlet {
+  display: block;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--brand-blue);
+  box-shadow: 0 10px 25px rgba(11, 99, 206, 0.25);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+}
+
+.brand {
+  position: absolute;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.brand-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.brand-name {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.top-nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 900px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 9px 12px;
+  font-weight: 700;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+}
+
+.nav-link.active {
+  background: var(--brand-orange);
+  color: #111827;
+  border-color: var(--brand-orange);
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+

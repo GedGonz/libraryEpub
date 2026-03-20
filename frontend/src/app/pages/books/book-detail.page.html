@@ -1,0 +1,101 @@
+<div class="page">
+  <div class="topbar">
+    <a class="btn btn-secondary back" routerLink="/books">← Volver</a>
+  </div>
+
+  @if (loading) {
+    <div class="status">Cargando...</div>
+  }
+
+  @if (error) {
+    <div class="status error">{{ error }}</div>
+  }
+
+  @if (!loading && !error && book) {
+    <div class="detail-layout">
+      <div class="detail-cover">
+        <img
+          class="detail-cover-img"
+          [src]="'/covers/' + book.sha256sum + '.webp'"
+          [alt]="'Portada de ' + book.title"
+        />
+      </div>
+
+      <div class="detail-content">
+        <h2 class="title">{{ book.title }}</h2>
+
+        @if (authorNames?.length) {
+          <div class="author-line">
+            <span class="meta-label">Autor(es):</span>
+            <span class="meta-value">{{ authorNames.join(', ') }}</span>
+          </div>
+        }
+
+        <div class="meta">
+          <div><strong>Año:</strong> {{ book.publishedYear ?? '-' }}</div>
+          <div><strong>Páginas:</strong> {{ book.pageCount ?? '-' }}</div>
+          @if (book.fileSize) {
+            <div class="file-size"><strong>Tamaño:</strong> {{ book.fileSize }} bytes</div>
+          }
+        </div>
+
+        @if (labelNames?.length) {
+          <div class="label-pills" aria-label="Temáticas del libro">
+            @for (l of labelNames; track l) {
+              <span class="pill">{{ l }}</span>
+            }
+          </div>
+        }
+
+        <section class="description">
+          <h3>Sinopsis</h3>
+          <p>{{ book.description }}</p>
+        </section>
+
+        <div class="actions">
+          <a class="btn btn-secondary" [href]="epubUrl" download>Descargar EPUB</a>
+          <button class="btn btn-secondary" type="button" (click)="openViewer()">
+            Ver libro
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (viewerOpen) {
+    <div
+      id="viewer-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="modal-header">
+        <button class="icon-btn" type="button" (click)="closeViewer()">X</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="viewer-stage">
+          <button class="viewer-nav viewer-nav-prev" type="button" aria-label="Página anterior" (click)="prevPage()">
+            ‹
+          </button>
+
+          <div id="page-info" class="page-info">Cargando páginas...</div>
+
+          <button class="viewer-nav viewer-nav-next" type="button" aria-label="Página siguiente" (click)="nextPage()">
+            ›
+          </button>
+
+          <div id="viewer" class="viewer"></div>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (viewerOpen) {
+    <div
+      class="modal-backdrop"
+      (click)="closeViewer()"
+    ></div>
+  }
+</div>
+

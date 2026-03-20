@@ -1,0 +1,52 @@
+# ---------
+# OS / Editor
+# ---------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ---------
+# Backend (Spring Boot / Gradle / Java)
+# ---------
+backend/.gradle/
+backend/build/
+backend/out/
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# Logs / runtime
+backend/*.log
+backend/logs/
+*.log
+
+# ---------
+# Frontend (Angular / Node)
+# ---------
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+frontend/.sass-cache/
+frontend/.eslintcache
+frontend/npm-debug.log*
+frontend/yarn-error.log
+frontend/pnpm-debug.log*
+
+# ---------
+# Env / secrets
+# ---------
+.env
+.env.*
+!.env.example
+
+# ---------
+# Docker / temp files
+# ---------
+*.pid
+*.seed
+*.tmp
+tmp/

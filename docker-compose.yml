@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ./backend
+    image: libraryepub-backend:latest
+    container_name: libraryepub-backend
+    environment:
+      - EPUB_STORAGE_BASE_PATH=/srv/library/epubs
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.1.140:5432/epubdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    volumes:
+      - "/home/gedgonz/library/Biblioteca Ebooks Español 2026 (epub)/biblioteca:/srv/library/epubs:ro"
+      - "/home/gedgonz/library/Biblioteca Ebooks Español 2026 (epub)/coversBooks:/srv/library/covers:ro"
+    ports:
+      - "18081:8080"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    image: libraryepub-frontend:latest
+    container_name: libraryepub-frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+    restart: unless-stopped

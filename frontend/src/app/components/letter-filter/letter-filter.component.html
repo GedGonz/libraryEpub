@@ -1,0 +1,22 @@
+<div class="letter-filter" role="navigation" aria-label="Filtro por letra A-Z">
+  <button
+    type="button"
+    class="letter"
+    [class.active]="activeLetter === 'ALL'"
+    (click)="select('ALL')"
+  >
+    Todos
+  </button>
+
+  @for (letter of letters; track letter) {
+    <button
+      type="button"
+      class="letter"
+      [class.active]="activeLetter === letter"
+      (click)="select(letter)"
+    >
+      {{ letter }}
+    </button>
+  }
+</div>
+

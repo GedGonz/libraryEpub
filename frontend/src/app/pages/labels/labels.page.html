@@ -1,0 +1,49 @@
+<div class="page">
+  <h2>Temáticas</h2>
+
+  <app-letter-filter [activeLetter]="activeLetter" (letterSelected)="onLetterSelected($event)"></app-letter-filter>
+
+  @if (loading) {
+    <div class="status">Cargando...</div>
+  }
+
+  @if (error) {
+    <div class="status error">{{ error }}</div>
+  }
+
+  @if (data?.items?.length) {
+    <div class="list">
+      @for (l of data?.items ?? []; track l.labelId) {
+        <a class="list-item" [routerLink]="['/labels', l.labelId]">
+          <div class="list-name">{{ l.name }}</div>
+        </a>
+      }
+    </div>
+  }
+
+  @if (!loading && !error && !(data?.items?.length)) {
+    <div class="empty">
+      No hay resultados.
+    </div>
+  }
+
+  @if (data) {
+    <div class="pagination">
+      <button class="btn" type="button" [disabled]="data.page <= 1" (click)="changePage(data.page - 1)">
+        Anterior
+      </button>
+      <div class="page-info">
+        Página {{ data.page }} de {{ data.totalPages }}
+      </div>
+      <button
+        class="btn"
+        type="button"
+        [disabled]="data.page >= data.totalPages"
+        (click)="changePage(data.page + 1)"
+      >
+        Siguiente
+      </button>
+    </div>
+  }
+</div>
+

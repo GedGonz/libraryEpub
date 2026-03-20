@@ -1,0 +1,54 @@
+<div class="page">
+  @if (error) {
+    <div class="status error">{{ error }}</div>
+  }
+
+  @if (!error) {
+    <h2>{{ authorName ?? '...' }}</h2>
+  }
+
+  <app-letter-filter [activeLetter]="activeLetter" (letterSelected)="onLetterSelected($event)"></app-letter-filter>
+
+  @if (loading) {
+    <div class="status">Cargando...</div>
+  }
+
+  @if (!loading && books?.items?.length) {
+    <div class="grid">
+      @for (b of books?.items ?? []; track b.bookId) {
+        <a class="card" [routerLink]="['/books', b.bookId]">
+          <div class="card-cover">
+            <img
+              [src]="'/covers/' + b.sha256sum + '.webp'"
+              [alt]="'Portada de ' + b.title"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-title">{{ b.title }}</div>
+          <div class="card-meta">
+            {{ b.publishedYear ?? '' }} {{ b.pageCount ? ('- ' + b.pageCount + ' páginas') : '' }}
+          </div>
+        </a>
+      }
+    </div>
+  }
+
+  @if (!loading && !error && !(books?.items?.length)) {
+    <div class="empty">No hay libros.</div>
+  }
+
+  @if (books) {
+    <div class="pagination">
+      <button class="btn" type="button" [disabled]="books.page <= 1" (click)="changePage(books.page - 1)">
+        Anterior
+      </button>
+      <div class="page-info">
+        Página {{ books.page }} de {{ books.totalPages }}
+      </div>
+      <button class="btn" type="button" [disabled]="books.page >= books.totalPages" (click)="changePage(books.page + 1)">
+        Siguiente
+      </button>
+    </div>
+  }
+</div>
+
