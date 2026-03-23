@@ -75,7 +75,7 @@ h2 {
   height: 34px;
   padding: 0 10px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -106,7 +106,7 @@ h2 {
 
 .page-info {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 10px;
   text-align: center;
   flex-basis: 100%;
   width: 100%;
@@ -114,3 +114,8 @@ h2 {
   margin-top: -2px;
 }
 
+
+
+.pagination .btn {
+  font-size: 10px;
+}
