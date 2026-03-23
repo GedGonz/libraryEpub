@@ -23,8 +23,8 @@ export class BookDetailPage {
 
   viewerOpen = false;
 
-  authorNames: string[] = [];
-  labelNames: string[] = [];
+  authorLinks: Array<{ authorId: number; name: string }> = [];
+  labelLinks: Array<{ labelId: number; name: string }> = [];
 
   private epubBook: any = null;
   private rendition: any = null;
@@ -74,24 +74,19 @@ export class BookDetailPage {
       Promise.allSettled(labelIds.map((id) => firstValueFrom(this.api.getLabelById(id)))),
     ]);
 
-    this.authorNames = Array.from(
-      new Set(
-        authorsRes
-          .filter((r): r is PromiseFulfilledResult<{ authorId: number; name: string }> => r.status === 'fulfilled')
-          .map((r) => r.value.name),
-      ),
-    );
-    this.labelNames = Array.from(
-      new Set(
-        labelsRes
-          .filter((r): r is PromiseFulfilledResult<{ labelId: number; name: string }> => r.status === 'fulfilled')
-          .map((r) => r.value.name),
-      ),
-    );
+    this.authorLinks = authorsRes
+      .filter((r): r is PromiseFulfilledResult<{ authorId: number; name: string }> => r.status === 'fulfilled')
+      .map((r) => r.value)
+      .filter((value, index, array) => array.findIndex((item) => item.authorId === value.authorId) === index);
+
+    this.labelLinks = labelsRes
+      .filter((r): r is PromiseFulfilledResult<{ labelId: number; name: string }> => r.status === 'fulfilled')
+      .map((r) => r.value)
+      .filter((value, index, array) => array.findIndex((item) => item.labelId === value.labelId) === index);
 
     // Limita a lo visual (pills) para no saturar.
-    this.authorNames = this.authorNames.slice(0, 4);
-    this.labelNames = this.labelNames.slice(0, 6);
+    this.authorLinks = this.authorLinks.slice(0, 4);
+    this.labelLinks = this.labelLinks.slice(0, 6);
 
     // Fuerza refresco de UI cuando las promesas terminan fuera de zona.
     this.cdr.detectChanges();

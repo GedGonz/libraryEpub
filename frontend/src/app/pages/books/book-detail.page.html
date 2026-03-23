@@ -24,10 +24,14 @@
       <div class="detail-content">
         <h2 class="title">{{ book.title }}</h2>
 
-        @if (authorNames?.length) {
+        @if (authorLinks?.length) {
           <div class="author-line">
             <span class="meta-label">Autor(es):</span>
-            <span class="meta-value">{{ authorNames.join(', ') }}</span>
+            <span class="meta-value">
+              @for (author of authorLinks; track author.authorId; let isLast = $last) {
+                <a class="meta-link" [routerLink]="['/authors', author.authorId]">{{ author.name }}</a>{{ isLast ? '' : ', ' }}
+              }
+            </span>
           </div>
         }
 
@@ -39,10 +43,10 @@
           }
         </div>
 
-        @if (labelNames?.length) {
+        @if (labelLinks?.length) {
           <div class="label-pills" aria-label="Temáticas del libro">
-            @for (l of labelNames; track l) {
-              <span class="pill">{{ l }}</span>
+            @for (label of labelLinks; track label.labelId) {
+              <a class="pill" [routerLink]="['/labels', label.labelId]">{{ label.name }}</a>
             }
           </div>
         }
