@@ -4,7 +4,29 @@
   </div>
 
   @if (loading) {
-    <div class="status">Cargando...</div>
+    <div class="sr-only">Cargando...</div>
+    <div class="detail-layout detail-layout-skeleton" aria-hidden="true">
+      <div class="detail-cover skeleton-block"></div>
+      <div class="detail-content">
+        <div class="skeleton-line skeleton-title"></div>
+        <div class="skeleton-line skeleton-author"></div>
+        <div class="meta">
+          <div class="skeleton-chip"></div>
+          <div class="skeleton-chip"></div>
+          <div class="skeleton-chip"></div>
+        </div>
+        <div class="label-pills">
+          <span class="skeleton-pill"></span>
+          <span class="skeleton-pill"></span>
+          <span class="skeleton-pill"></span>
+        </div>
+        <section class="description">
+          <div class="skeleton-line skeleton-text"></div>
+          <div class="skeleton-line skeleton-text"></div>
+          <div class="skeleton-line skeleton-text short"></div>
+        </section>
+      </div>
+    </div>
   }
 
   @if (error) {
