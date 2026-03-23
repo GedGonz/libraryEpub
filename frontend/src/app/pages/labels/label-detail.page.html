@@ -13,6 +13,27 @@
     <div class="status">Cargando...</div>
   }
 
+  @if (books) {
+    <div class="pagination">
+      <button class="btn" type="button" [disabled]="books.page <= 1" (click)="changePage(books.page - 1)">
+        Anterior
+      </button>
+      <div class="page-numbers">
+        @for (p of getVisiblePages(books.totalPages, books.page); track p) {
+          <button class="page-number" type="button" [class.active]="p === books.page" (click)="changePage(p)">
+            {{ p }}
+          </button>
+        }
+      </div>
+      <div class="page-info">
+        Página {{ books.page }} de {{ books.totalPages }}
+      </div>
+      <button class="btn" type="button" [disabled]="books.page >= books.totalPages" (click)="changePage(books.page + 1)">
+        Siguiente
+      </button>
+    </div>
+  }
+
   @if (!loading && books?.items?.length) {
     <div class="grid">
       @for (b of books?.items ?? []; track b.bookId) {
@@ -54,6 +75,13 @@
       <button class="btn" type="button" [disabled]="books.page <= 1" (click)="changePage(books.page - 1)">
         Anterior
       </button>
+      <div class="page-numbers">
+        @for (p of getVisiblePages(books.totalPages, books.page); track p) {
+          <button class="page-number" type="button" [class.active]="p === books.page" (click)="changePage(p)">
+            {{ p }}
+          </button>
+        }
+      </div>
       <div class="page-info">
         Página {{ books.page }} de {{ books.totalPages }}
       </div>

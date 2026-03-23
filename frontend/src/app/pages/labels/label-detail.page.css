@@ -60,13 +60,42 @@ h2 {
   gap: 12px;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.page-number {
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text);
+  border-radius: 10px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.page-number.active {
+  border-color: var(--brand-blue);
+  background: rgba(11, 99, 206, 0.12);
+  color: var(--brand-blue);
 }
 
 .page-info {
   color: var(--muted);
   font-size: 13px;
-  min-width: 140px;
   text-align: center;
+  flex-basis: 100%;
+  width: 100%;
+  order: 99;
+  margin-top: -2px;
 }
 
 .btn {

@@ -55,6 +55,18 @@ export class AuthorDetailPage {
     this.load();
   }
 
+  getVisiblePages(totalPages: number, currentPage: number): number[] {
+    if (totalPages <= 1) return [1];
+    const windowSize = 2;
+    const start = Math.max(1, currentPage - windowSize);
+    const end = Math.min(totalPages, currentPage + windowSize);
+    const pages: number[] = [];
+    for (let page = start; page <= end; page++) {
+      pages.push(page);
+    }
+    return pages;
+  }
+
   isFavorite(bookId: number): boolean {
     return this.favoriteBooks.isFavorite(bookId);
   }

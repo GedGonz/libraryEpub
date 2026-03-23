@@ -53,6 +53,18 @@ export class AuthorsPage {
     void this.syncUrlState();
   }
 
+  getVisiblePages(totalPages: number, currentPage: number): number[] {
+    if (totalPages <= 1) return [1];
+    const windowSize = 2;
+    const start = Math.max(1, currentPage - windowSize);
+    const end = Math.min(totalPages, currentPage + windowSize);
+    const pages: number[] = [];
+    for (let page = start; page <= end; page++) {
+      pages.push(page);
+    }
+    return pages;
+  }
+
   private syncUrlState() {
     return this.router.navigate([], {
       relativeTo: this.route,

@@ -22,6 +22,32 @@
     <div class="status error">{{ error }}</div>
   }
 
+  @if (data) {
+    <div class="pagination">
+      <button class="btn" type="button" [disabled]="data.page <= 1" (click)="changePage(data.page - 1)">
+        Anterior
+      </button>
+      <div class="page-numbers">
+        @for (p of getVisiblePages(data.totalPages, data.page); track p) {
+          <button class="page-number" type="button" [class.active]="p === data.page" (click)="changePage(p)">
+            {{ p }}
+          </button>
+        }
+      </div>
+      <div class="page-info">
+        Página {{ data.page }} de {{ data.totalPages }}
+      </div>
+      <button
+        class="btn"
+        type="button"
+        [disabled]="data.page >= data.totalPages"
+        (click)="changePage(data.page + 1)"
+      >
+        Siguiente
+      </button>
+    </div>
+  }
+
   @if (data?.items?.length) {
     <div class="grid">
       @for (b of data?.items ?? []; track b.bookId; let i = $index) {
@@ -70,6 +96,13 @@
       <button class="btn" type="button" [disabled]="data.page <= 1" (click)="changePage(data.page - 1)">
         Anterior
       </button>
+      <div class="page-numbers">
+        @for (p of getVisiblePages(data.totalPages, data.page); track p) {
+          <button class="page-number" type="button" [class.active]="p === data.page" (click)="changePage(p)">
+            {{ p }}
+          </button>
+        }
+      </div>
       <div class="page-info">
         Página {{ data.page }} de {{ data.totalPages }}
       </div>
