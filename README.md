@@ -1,6 +1,21 @@
 # libraryEPub
 
-Aplicacion full-stack para explorar una biblioteca EPUB:
+Aplicacion full-stack para explorar una biblioteca EPUB.
+
+Este proyecto es una mejora del indexador de la Biblioteca Secreta: utiliza una base de datos construida a partir de libros provenientes del torrent de la biblioteca, y genera portadas (incluyendo thumbnails) a partir del contenido de cada archivo EPUB.
+
+Para el pipeline de imagenes se utilizaron scripts en Python:
+- un script que genera las portadas a partir de los libros EPUB,
+- y otro script en Python que genera los thumbnails a partir de esas portadas.
+
+Referencia del proyecto/origen de catalogo: http://bibliotecasecreta.nl/
+
+Contexto y credito:
+- Este proyecto nace como sustitucion/mejora del indexador incluido en el torrent de Biblioteca Secreta.
+- El indexador original se asocia publicamente al alias **MR. Fado**.
+- Este repositorio implementa una alternativa tecnica de indexacion, navegacion y visualizacion de metadatos/portadas.
+
+Incluye:
 - **Frontend Angular** para listado, filtros A-Z, detalle de libro y visor EPUB.
 - **Backend Spring Boot** para API REST, acceso a PostgreSQL y servicio de archivos EPUB/portadas.
 - **Docker Compose** para desplegar frontend + backend.
@@ -58,8 +73,7 @@ libraryEPub/
 │   ├── package.json
 │   └── Dockerfile
 ├── docker-compose.yml
-├── .gitignore
-└── PLAN.md
+└── .gitignore
 ```
 
 ---
@@ -73,12 +87,18 @@ libraryEPub/
   - filtro por letra (A-Z)
   - busqueda
   - paginacion
+  - boton de "Me gusta"
 - Listado de autores y tematicas (labels) con filtro A-Z.
 - Detalle de autor/tematica con sus libros relacionados.
 - Detalle de libro con:
   - portada, metadata y sinopsis
   - descarga de EPUB
   - visor EPUB embebido (paginado + navegacion)
+- Pantalla "Mis Libros" para ver favoritos.
+- Persistencia de estado de navegacion al volver:
+  - conserva pagina/filtros en URL (query params)
+  - restaura scroll por ruta
+- Persistencia de favoritos en base de datos por dispositivo/navegador (UUID de cliente).
 - Portadas optimizadas con soporte de thumbnails (`/covers/thumbs/...`).
 
 ---
@@ -159,6 +179,11 @@ URLs:
 - `GET /api/labels?page=1&size=20`
 - `GET /api/labels/{labelId}`
 - `GET /api/labels/search?prefix=A&page=1&size=20`
+
+### Favorites (por dispositivo)
+- `GET /api/favorites` (requiere header `X-Client-Id`)
+- `POST /api/favorites/{bookId}` (requiere header `X-Client-Id`)
+- `DELETE /api/favorites/{bookId}` (requiere header `X-Client-Id`)
 
 Respuesta de paginado estandar:
 
