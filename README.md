@@ -103,6 +103,19 @@ libraryEPub/
 
 ---
 
+## Capturas de la web
+
+### Inicio / listado de libros
+![Inicio - Libros](docs/screenshots/home-books.png)
+
+### Detalle de libro
+![Detalle de libro](docs/screenshots/book-detail.png)
+
+### Mis Libros (favoritos)
+![Mis Libros](docs/screenshots/favorites.png)
+
+---
+
 ## 4) Configuracion y variables
 
 ### Backend (`backend/src/main/resources/application.yml`)
