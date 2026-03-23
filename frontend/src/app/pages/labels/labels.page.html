@@ -11,7 +11,7 @@
     <div class="status error">{{ error }}</div>
   }
 
-  @if (data) {
+  @if (data && data.totalPages > 1) {
     <div class="pagination">
       <button class="btn" type="button" [disabled]="data.page <= 1" (click)="changePage(data.page - 1)">
         Anterior

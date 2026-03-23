@@ -13,7 +13,7 @@
     <div class="status">Cargando...</div>
   }
 
-  @if (books) {
+  @if (books && books.totalPages > 1) {
     <div class="pagination">
       <button class="btn" type="button" [disabled]="books.page <= 1" (click)="changePage(books.page - 1)">
         Anterior
