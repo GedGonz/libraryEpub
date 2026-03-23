@@ -14,7 +14,7 @@
   @if (data?.items?.length) {
     <div class="list">
       @for (l of data?.items ?? []; track l.labelId) {
-        <a class="list-item" [routerLink]="['/labels', l.labelId]">
+        <a class="list-item" [routerLink]="['/labels', l.labelId]" queryParamsHandling="preserve">
           <div class="list-name">{{ l.name }}</div>
         </a>
       }

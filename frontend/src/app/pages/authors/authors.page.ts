@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Author } from '../../models/library.models';
 import { PageResponse } from '../../models/page-response';
@@ -22,23 +22,46 @@ export class AuthorsPage {
   error: string | null = null;
   data: PageResponse<Author> | null = null;
 
-  constructor(private readonly api: ApiService) {}
+  constructor(
+    private readonly api: ApiService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+  ) {}
 
   ngOnInit() {
-    this.load();
+    this.route.queryParamMap.subscribe((params) => {
+      const pageParam = Number(params.get('page'));
+      this.page = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1;
+
+      const letterParam = (params.get('letter') ?? 'ALL').toUpperCase();
+      this.activeLetter = /^[A-Z]$/.test(letterParam) ? letterParam : 'ALL';
+
+      this.load();
+    });
   }
 
   onLetterSelected(letter: string) {
     this.activeLetter = letter;
     this.page = 1;
-    this.load();
+    void this.syncUrlState();
   }
 
   changePage(nextPage: number) {
     if (nextPage < 1) return;
     if (this.data && nextPage > this.data.totalPages) return;
     this.page = nextPage;
-    this.load();
+    void this.syncUrlState();
+  }
+
+  private syncUrlState() {
+    return this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: this.page > 1 ? this.page : null,
+        letter: this.activeLetter !== 'ALL' ? this.activeLetter : null,
+      },
+      replaceUrl: true,
+    });
   }
 
   private load() {

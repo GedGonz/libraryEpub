@@ -17,6 +17,7 @@
         <a
           class="list-item"
           [routerLink]="['/authors', a.authorId]"
+          queryParamsHandling="preserve"
         >
           <div class="list-name">{{ a.name }}</div>
         </a>
