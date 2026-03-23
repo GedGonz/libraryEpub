@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 import { BookDetail } from '../../models/library.models';
 import { firstValueFrom } from 'rxjs';
 import ePub from 'epubjs';
+import { FavoriteBooksService } from '../../services/favorite-books.service';
 
 @Component({
   selector: 'app-book-detail-page',
@@ -33,6 +34,7 @@ export class BookDetailPage {
     private readonly api: ApiService,
     private readonly route: ActivatedRoute,
     private readonly cdr: ChangeDetectorRef,
+    private readonly favoriteBooks: FavoriteBooksService,
   ) {}
 
   ngOnInit() {
@@ -120,6 +122,15 @@ export class BookDetailPage {
 
   nextPage() {
     if (this.rendition) this.rendition.next();
+  }
+
+  isFavorite(): boolean {
+    return this.book ? this.favoriteBooks.isFavorite(this.book.bookId) : false;
+  }
+
+  toggleFavorite() {
+    if (!this.book) return;
+    this.favoriteBooks.toggleFavorite(this.book);
   }
 
   private async loadAndRenderViewer() {

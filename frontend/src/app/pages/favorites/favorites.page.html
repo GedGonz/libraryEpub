@@ -1,0 +1,45 @@
+<div class="page">
+  <h2>Mis Libros</h2>
+
+  @if (favorites.length) {
+    <div class="grid">
+      @for (b of favorites; track b.bookId; let i = $index) {
+        <div class="card-shell">
+          <button
+            class="favorite-btn active"
+            type="button"
+            (click)="remove(b.bookId, $event)"
+            [attr.aria-label]="'Quitar ' + b.title + ' de Me gusta'"
+            title="Quitar de Me gusta"
+          >
+            ❤
+          </button>
+
+          <a class="card" [routerLink]="['/books', b.bookId]">
+            <div class="card-cover">
+              <img
+                [src]="'/covers/thumbs/' + b.sha256sum + '.webp'"
+                [alt]="'Portada de ' + b.title"
+                [attr.loading]="i < 4 ? 'eager' : 'lazy'"
+                [attr.fetchpriority]="i < 2 ? 'high' : 'auto'"
+                decoding="async"
+                width="220"
+                height="330"
+              />
+            </div>
+            <div class="card-title">{{ b.title }}</div>
+            <div class="card-author">{{ b.authorNames?.join(', ') || 'Autor desconocido' }}</div>
+            <div class="card-meta">
+              {{ b.publishedYear ?? '' }} {{ b.pageCount ? ('- ' + b.pageCount + ' páginas') : '' }}
+            </div>
+          </a>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty">
+      Aún no tienes libros marcados con Me gusta.
+    </div>
+  }
+</div>
+

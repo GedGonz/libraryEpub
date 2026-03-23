@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 import { BookListItem } from '../../models/library.models';
 import { PageResponse } from '../../models/page-response';
 import { LetterFilterComponent } from '../../components/letter-filter/letter-filter.component';
+import { FavoriteBooksService } from '../../services/favorite-books.service';
 
 @Component({
   selector: 'app-author-detail-page',
@@ -26,7 +27,11 @@ export class AuthorDetailPage {
 
   private authorId: number | null = null;
 
-  constructor(private readonly api: ApiService, private readonly route: ActivatedRoute) {}
+  constructor(
+    private readonly api: ApiService,
+    private readonly route: ActivatedRoute,
+    private readonly favoriteBooks: FavoriteBooksService,
+  ) {}
 
   ngOnInit() {
     this.authorId = Number(this.route.snapshot.paramMap.get('authorId'));
@@ -48,6 +53,16 @@ export class AuthorDetailPage {
     if (this.books && nextPage > this.books.totalPages) return;
     this.page = nextPage;
     this.load();
+  }
+
+  isFavorite(bookId: number): boolean {
+    return this.favoriteBooks.isFavorite(bookId);
+  }
+
+  toggleFavorite(book: BookListItem, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.favoriteBooks.toggleFavorite(book);
   }
 
   private load() {

@@ -25,24 +25,36 @@
   @if (data?.items?.length) {
     <div class="grid">
       @for (b of data?.items ?? []; track b.bookId; let i = $index) {
-        <a class="card" [routerLink]="['/books', b.bookId]" queryParamsHandling="preserve">
-          <div class="card-cover">
-            <img
-              [src]="'/covers/thumbs/' + b.sha256sum + '.webp'"
-              [alt]="'Portada de ' + b.title"
-              [attr.loading]="i < 4 ? 'eager' : 'lazy'"
-              [attr.fetchpriority]="i < 2 ? 'high' : 'auto'"
-              decoding="async"
-              width="220"
-              height="330"
-            />
-          </div>
-          <div class="card-title">{{ b.title }}</div>
-          <div class="card-author">{{ b.authorNames?.join(', ') || 'Autor desconocido' }}</div>
-          <div class="card-meta">
-            {{ b.publishedYear ?? '' }} {{ b.pageCount ? ('- ' + b.pageCount + ' páginas') : '' }}
-          </div>
-        </a>
+        <div class="card-shell">
+          <button
+            class="favorite-btn"
+            type="button"
+            [class.active]="isFavorite(b.bookId)"
+            (click)="toggleFavorite(b, $event)"
+            [attr.aria-label]="isFavorite(b.bookId) ? 'Quitar de Me gusta' : 'Agregar a Me gusta'"
+          >
+            ❤
+          </button>
+
+          <a class="card" [routerLink]="['/books', b.bookId]" queryParamsHandling="preserve">
+            <div class="card-cover">
+              <img
+                [src]="'/covers/thumbs/' + b.sha256sum + '.webp'"
+                [alt]="'Portada de ' + b.title"
+                [attr.loading]="i < 4 ? 'eager' : 'lazy'"
+                [attr.fetchpriority]="i < 2 ? 'high' : 'auto'"
+                decoding="async"
+                width="220"
+                height="330"
+              />
+            </div>
+            <div class="card-title">{{ b.title }}</div>
+            <div class="card-author">{{ b.authorNames?.join(', ') || 'Autor desconocido' }}</div>
+            <div class="card-meta">
+              {{ b.publishedYear ?? '' }} {{ b.pageCount ? ('- ' + b.pageCount + ' páginas') : '' }}
+            </div>
+          </a>
+        </div>
       }
     </div>
   }

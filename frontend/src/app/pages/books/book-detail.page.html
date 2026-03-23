@@ -57,6 +57,9 @@
           <button class="btn btn-secondary" type="button" (click)="openViewer()">
             Ver libro
           </button>
+          <button class="btn btn-favorite" type="button" [class.active]="isFavorite()" (click)="toggleFavorite()">
+            {{ isFavorite() ? '❤ En mis Libros' : '❤ Agregar' }}
+          </button>
         </div>
       </div>
     </div>

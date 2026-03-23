@@ -20,6 +20,10 @@ h2 {
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
 }
 
+.card-shell {
+  position: relative;
+}
+
 .card {
   text-decoration: none;
   border: 1px solid rgba(229, 231, 235, 0.9);
@@ -115,5 +119,30 @@ h2 {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 99, 206, 0.2);
+  background:#fff9;
+  color: #0b63ceb2;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.favorite-btn.active {
+  color: #e11d48;
+  border-color: rgba(225, 29, 72, 0.24);
+  background: rgba(255, 255, 255, 0.98);
 }
 

@@ -1,12 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PageResponse } from '../models/page-response';
 import { Author, BookDetail, BookListItem, Label } from '../models/library.models';
+import { DeviceIdService } from './device-id.service';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private readonly http = inject(HttpClient);
+  private readonly deviceIdService = inject(DeviceIdService);
 
   listBooks(page: number, size: number): Observable<PageResponse<BookListItem>> {
     return this.http.get<PageResponse<BookListItem>>('/api/books', {
@@ -87,6 +89,24 @@ export class ApiService {
 
   getLabelById(labelId: number): Observable<Label> {
     return this.http.get<Label>(`/api/labels/${labelId}`);
+  }
+
+  listFavoriteBooks(): Observable<BookListItem[]> {
+    return this.http.get<BookListItem[]>('/api/favorites', { headers: this.favoriteHeaders() });
+  }
+
+  addFavoriteBook(bookId: number): Observable<void> {
+    return this.http.post<void>(`/api/favorites/${bookId}`, null, { headers: this.favoriteHeaders() });
+  }
+
+  removeFavoriteBook(bookId: number): Observable<void> {
+    return this.http.delete<void>(`/api/favorites/${bookId}`, { headers: this.favoriteHeaders() });
+  }
+
+  private favoriteHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'X-Client-Id': this.deviceIdService.getOrCreate(),
+    });
   }
 }
 

@@ -10,58 +10,6 @@ h2 {
   color: var(--text);
 }
 
-.search {
-  display: flex;
-  gap: 10px;
-  margin: 0 0 6px;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: #f8fafc;
-}
-
-.search-input {
-  flex: 1;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-size: 14px;
-  background: transparent;
-  outline: none;
-}
-
-.btn {
-  border: 1px solid var(--brand-blue);
-  background: var(--brand-blue);
-  color: #ffffff;
-  border-radius: 14px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 700;
-  box-shadow: 0 10px 22px rgba(11, 99, 206, 0.18);
-  transition: filter 0.12s ease, transform 0.05s ease;
-}
-
-.btn[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.btn:hover:not([disabled]) {
-  filter: brightness(1.04);
-}
-
-.status {
-  margin-top: 14px;
-  color: var(--text);
-}
-
-.status.error {
-  color: #b91c1c;
-}
-
 .grid {
   margin-top: 16px;
   display: grid;
@@ -82,7 +30,6 @@ h2 {
   transition: transform 0.08s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
 }
 
 .card:hover {
@@ -108,26 +55,6 @@ h2 {
 
 .card-meta {
   font-size: 12px;
-  color: var(--muted);
-}
-
-.pagination {
-  margin-top: 16px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
-}
-
-.page-info {
-  color: var(--muted);
-  font-size: 13px;
-  min-width: 140px;
-  text-align: center;
-}
-
-.empty {
-  margin-top: 16px;
   color: var(--muted);
 }
 
@@ -173,5 +100,10 @@ h2 {
   color: #e11d48;
   border-color: rgba(225, 29, 72, 0.24);
   background: rgba(255, 255, 255, 0.98);
+}
+
+.empty {
+  margin-top: 16px;
+  color: var(--muted);
 }
 

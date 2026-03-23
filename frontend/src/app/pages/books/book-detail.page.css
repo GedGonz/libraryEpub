@@ -173,6 +173,19 @@
   background: rgba(11, 99, 206, 0.14);
 }
 
+.btn-favorite {
+  background: rgba(225, 29, 72, 0.1);
+  border-color: rgba(225, 29, 72, 0.3);
+  color: #be123c;
+  box-shadow: none;
+}
+
+.btn-favorite.active {
+  background: rgba(225, 29, 72, 0.18);
+  border-color: rgba(225, 29, 72, 0.44);
+  color: #9f1239;
+}
+
 .btn:hover:not([disabled]) {
   filter: brightness(1.04);
 }

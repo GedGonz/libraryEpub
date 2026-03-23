@@ -6,6 +6,7 @@ import { ApiService } from '../../services/api.service';
 import { BookListItem } from '../../models/library.models';
 import { LetterFilterComponent } from '../../components/letter-filter/letter-filter.component';
 import { PageResponse } from '../../models/page-response';
+import { FavoriteBooksService } from '../../services/favorite-books.service';
 
 @Component({
   selector: 'app-books-page',
@@ -29,6 +30,7 @@ export class BooksPage {
     private readonly api: ApiService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
+    private readonly favoriteBooks: FavoriteBooksService,
   ) {}
 
   ngOnInit() {
@@ -69,6 +71,16 @@ export class BooksPage {
     if (this.data && nextPage > this.data.totalPages) return;
     this.page = nextPage;
     void this.syncUrlState();
+  }
+
+  isFavorite(bookId: number): boolean {
+    return this.favoriteBooks.isFavorite(bookId);
+  }
+
+  toggleFavorite(book: BookListItem, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.favoriteBooks.toggleFavorite(book);
   }
 
   private syncUrlState() {
