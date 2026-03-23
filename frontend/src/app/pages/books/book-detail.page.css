@@ -108,17 +108,20 @@
 }
 
 .detail-cover {
-  width: 260px;
-  flex: 0 0 260px;
+  width: clamp(260px, 28vw, 360px);
+  flex: 0 0 clamp(260px, 28vw, 360px);
   overflow: hidden;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
+  align-self: stretch;
   border-radius: 14px;
+  min-height: 420px;
+  max-height: 900px;
 }
 
 .detail-cover-img {
   width: 100%;
-  aspect-ratio: 2 / 3;
+  height: 100%;
   border-radius: 14px;
   object-fit: cover;
   display: block;
@@ -127,7 +130,7 @@
 .detail-layout {
   display: flex;
   gap: 12px;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .detail-content {

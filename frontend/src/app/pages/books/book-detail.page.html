@@ -39,7 +39,7 @@
           <div><strong>Año:</strong> {{ book.publishedYear ?? '-' }}</div>
           <div><strong>Páginas:</strong> {{ book.pageCount ?? '-' }}</div>
           @if (book.fileSize) {
-            <div class="file-size"><strong>Tamaño:</strong> {{ book.fileSize }} bytes</div>
+            <div class="file-size"><strong>Tamaño:</strong> {{ formatFileSizeInMb(book.fileSize) }}</div>
           }
         </div>
 

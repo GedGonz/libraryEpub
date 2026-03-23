@@ -128,6 +128,20 @@ export class BookDetailPage {
     this.favoriteBooks.toggleFavorite(this.book);
   }
 
+  formatFileSizeInMb(bytes: number | null | undefined): string {
+    if (!bytes || bytes <= 0) return '-';
+    const mb = bytes / (1024 * 1024);
+    if (mb < 1) {
+      const kb = bytes / 1024;
+      return `${kb.toFixed(2)} KB`;
+    }
+    if (mb >= 1024) {
+      const gb = mb / 1024;
+      return `${gb.toFixed(2)} GB`;
+    }
+    return `${mb.toFixed(2)} MB`;
+  }
+
   private async loadAndRenderViewer() {
     if (!this.bookId) return;
     if (this.isLoadingViewer) return;
