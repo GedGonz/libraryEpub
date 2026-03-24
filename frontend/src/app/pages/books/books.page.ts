@@ -22,6 +22,11 @@ export class BooksPage {
   page = 1;
   readonly size = 20;
 
+  /** Índices para el skeleton; mismo tamaño que la página de resultados. */
+  get skeletonSlots(): number[] {
+    return Array.from({ length: this.size }, (_, i) => i);
+  }
+
   loading = false;
   error: string | null = null;
   data: PageResponse<BookListItem> | null = null;

@@ -16,6 +16,11 @@ import { FavoriteBooksService } from '../../services/favorite-books.service';
 })
 export class LabelDetailPage {
   readonly size = 20;
+
+  get skeletonSlots(): number[] {
+    return Array.from({ length: this.size }, (_, i) => i);
+  }
+
   activeLetter = 'ALL';
   page = 1;
 

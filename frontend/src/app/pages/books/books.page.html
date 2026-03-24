@@ -13,12 +13,12 @@
 
   <app-letter-filter [activeLetter]="activeLetter" (letterSelected)="onLetterSelected($event)"></app-letter-filter>
 
-  @if (loading) {
+  @if (loading && !data) {
     <div class="sr-only">Cargando...</div>
     <div class="grid skeleton-grid" aria-hidden="true">
-      @for (_ of [1,2,3,4,5,6,7,8,9,10]; track $index) {
+      @for (_ of skeletonSlots; track $index) {
         <div class="card skeleton-card">
-          <div class="card-cover skeleton-block"></div>
+          <div class="card-cover skeleton-cover skeleton-block" aria-hidden="true"></div>
           <div class="skeleton-line skeleton-title"></div>
           <div class="skeleton-line skeleton-author"></div>
           <div class="skeleton-line skeleton-meta"></div>
@@ -58,7 +58,7 @@
   }
 
   @if (data?.items?.length) {
-    <div class="grid">
+    <div class="grid" [class.grid-refreshing]="loading">
       @for (b of data?.items ?? []; track b.bookId; let i = $index) {
         <div class="card-shell">
           <button
@@ -94,7 +94,7 @@
     </div>
   }
 
-  @if (!loading && !error && !(data?.items?.length)) {
+  @if (!loading && !error && data && !(data.items?.length)) {
     <div class="empty">
       No hay resultados.
     </div>
